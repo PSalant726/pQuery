@@ -52,7 +52,7 @@ $pQueryObj.addClass(className);
 
 #### append
 
-For an array of DOM elements with `n` child elements, creates a new element or series of elements beginning in the `n + 1` position.
+For an array of DOM elements with `n` child elements, creates a new element or series of elements beginning with the `n + 1` position.
 
 ```JavaScript
 $pQueryObj.append(newChildElements);
