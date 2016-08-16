@@ -147,6 +147,19 @@ $pQueryObj.removeClass(className);
 Utilizes the `XMLHTTPRequest` API to asynchronously send and receive data from a server. By default, the `$p.ajax` function sends a `GET` request to an empty URL, with neither a success nor an error callback included.
 
 ```JavaScript
+// DEFAULT:
+
+$p.ajax({
+  url: "",
+  method: 'GET',
+  contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+  data: {},
+  success: () => {},
+  error: () => {}  
+});
+
+// EXAMPLE:
+
 $p.ajax({
   url: "/users",
   method: "PATCH",
