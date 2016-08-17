@@ -3,3 +3,6 @@
 
 # Ignore precompiled pquery.js
 /lib/pquery.js
+
+# Ignore index.html test file
+index.html
