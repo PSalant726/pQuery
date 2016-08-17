@@ -1,6 +1,24 @@
 # pQuery
 A recreation of the most important jQuery functionality, using only vanilla JavaScript and the native DOM API.
 
+## Getting Started
+
+To incorporate pQuery into a project, first [webpack][webpack] the component files by running the following command:
+
+[webpack]: https://webpack.github.io
+
+```
+webpack -g ./lib/main.js ./lib/pquery.js
+```
+
+You can now include `./lib/pquery.js` in the `<head>` tag of your HTML document like so:
+
+```html
+<head>
+  <script src="./lib/pquery.js" charset="utf-8"></script>
+</head>
+```
+
 ## Core Function
 
 $p is the Core Function of pQuery, which takes a single argument. The argument can be one of three data types: a function, a CSS selector, or an HTML element.
@@ -55,7 +73,9 @@ $pQueryObj.addClass(className);
 For an array of DOM elements with `n` child elements, creates a new element or series of elements beginning with the `n + 1` position.
 
 ```JavaScript
-$pQueryObj.append(newChildElements);
+var $pQueryObj = $p("<div>Parent <div>Old Child</div> </div>")
+$pQueryObj.append("<div>New Child</div>");
+// => <div>Parent <div>Old Child</div> <div>New Child</div> </div>
 ```
 
 #### attr
