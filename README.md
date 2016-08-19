@@ -3,7 +3,13 @@ A recreation of the most important jQuery functionality, using only vanilla Java
 
 ## Getting Started
 
-To incorporate pQuery into a project, first [webpack][webpack] the component files by running the following command:
+To incorporate pQuery into a project, first download this repository to your local machine, or use the Git CLI to clone this repository using the following command:
+
+```
+git clone https://github.com/PSalant726/pQuery.git
+```
+
+Bundle pQuery by changing working directories to the newly downloaded or cloned directory, then [webpack][webpack] the component files by running:
 
 [webpack]: https://webpack.github.io
 
@@ -11,11 +17,11 @@ To incorporate pQuery into a project, first [webpack][webpack] the component fil
 webpack -g ./lib/main.js ./lib/pquery.js
 ```
 
-You can now include `./lib/pquery.js` in the `<head>` tag of your HTML document like so:
+You can now include `pquery.js` in the `<head>` tag of your HTML document, like so:
 
 ```html
 <head>
-  <script src="./lib/pquery.js" charset="utf-8"></script>
+  <script type="text/javascript" src="[PATH TO FILE]/lib/pquery.js"></script>
 </head>
 ```
 
@@ -27,146 +33,172 @@ $p is the Core Function of pQuery, which takes a single argument. The argument c
 
 The function passed to the Core Function is temporarily queued in an array of functions to call upon `DOMContentLoaded`. pQuery will invoke the function once the DOM loads, and after invoking any functions that have been queued previously.
 
-```JavaScript
-const logString = textString => {
-  console.log(textString);
-};
+```html
+<head>
+  <script type="text/javascript" src="./lib/pquery.js"></script>
+</head>
+<body>
+  <script>
+    const fillDiv = () => {
+      $p('class-name').html("Hello World!");
+    };
 
-$p(logString("Hello World!"));
+    $p(fillDiv);
+  </script>
+
+  <div class='class-name'></div>
+
+</body>
 ```
 
 ### Passing a CSS selector
 
 The Core Function returns an array of all HTML elements in the DOM that match the selector.
 
-```JavaScript
+```javascript
 var $divs = $p("div");
 // => [<div>First div</div>, ... , <div>Last div</div>]
 
 var $someClassNameEls = $p("someClassName");
 // => [<div class="someClassName"></div>]
 
-var $elWithId = $p("id");
-// => [<div id="id"></div>]
+var $elWithId = $p("someId");
+// => [<div id="someId"></div>]
 ```
 
 ### Passing an HTML Element
 
 The Core Function returns a pQuery object for use with the public API.
 
-```JavaScript
+```javascript
 var $pQueryDiv = $p("<div></div>");
 ```
 
 ## pQuery Object API
 
-#### addClass
+#### addClass(className)
 
 Adds a class to an existing DOM element. If the DOM element already has a class defined, the class is appended to the element's classes.
 
-```JavaScript
-$pQueryObj.addClass(className);
+```javascript
+var $pQueryObj = $p("<div></div>");
+
+$pQueryObj.addClass("class-name");
+// => "<div class="class-name"></div>"
 ```
 
-#### append
+#### append(HTMLElement)
 
 For an array of DOM elements with `n` child elements, creates a new element or series of elements beginning with the `n + 1` position.
 
-```JavaScript
+```javascript
 var $pQueryObj = $p("<div>Parent <div>Old Child</div> </div>")
+
 $pQueryObj.append("<div>New Child</div>");
-// => <div>Parent <div>Old Child</div> <div>New Child</div> </div>
+// => "<div>Parent <div>Old Child</div> <div>New Child</div> </div>"
 ```
 
-#### attr
+#### attr(attributeName), attr(attributeName, attributeValue)
 
 When one argument is passed, will return the value of the argument attribute for each DOM element. When two arguments are passed, will set the value of the argument attribute to the passed value.
 
-```JavaScript
-$pQueryObj.attr(attributeName);
+```javascript
+var $pQueryObj = $p("<input type='text'></input>");
 
-$pQueryObj.attr(attributeName, attributeVal);
+$pQueryObj.attr("type");
+// => "text"
+
+$pQueryObj.attr("type", "password");
+// => "<input type='password'></input>"
 ```
 
-#### children
+#### children()
 
 Returns an array containing the child elements of DOM element(s).
 
-```JavaScript
+```javascript
 $pQueryObj.children();
 ```
 
-#### empty
+#### empty()
 
 Clears the inner HTML of DOM elements(s).
 
-```JavaScript
+```javascript
 $pQueryObj.empty();
 ```
 
-#### find
+#### find(selector)
 
 Returns DOM elements by CSS selector.
 
-```JavaScript
-$pQueryObj.find(selector);
+```javascript
+$pQueryObj.find("example");
+// => "<div class='example'></div>"
 ```
 
-#### html
+#### html(), html("New HTML")
 
 When no argument is passed, returns the inner HTML of DOM elements. When one argument is passed, sets the inner HTML of DOM elements to the passed value.
 
-```JavaScript
-$pQueryObj.html();
+```javascript
+var $pQueryObj = $p("<div>Old HTML</div>")
 
-$pQueryObj.html(newHTML);
+$pQueryObj.html();
+// => "Old HTML"
+
+$pQueryObj.html("New HTML");
+//  => "<div>New HTML</div>"
 ```
 
-#### off
+#### off(event, callback)
 
 Remove an event listener from DOM element(s).
 
-```JavaScript
-$pQueryObj.off(event, callback);
+```javascript
+$pQueryObj.off("mouseover", function(){ console.log("Hello World!"); });
 ```
 
-#### on
+#### on(event, callback)
 
 Add an event listener to DOM element(s).
 
-```JavaScript
-$pQueryObj.on(event, callback);
+```javascript
+$pQueryObj.on("mouseover", function(){ console.log("Hello World!"); });
 ```
 
-#### parent
+#### parent()
 
 Returns the parent element of DOM element(s).
 
-```JavaScript
+```javascript
 $pQueryObj.parent();
 ```
 
-#### remove
+#### remove()
 
 Removes an element from the DOM.
 
-```JavaScript
+```javascript
 $pQueryObj.remove();
 ```
 
-#### removeClass
+#### removeClass(className)
 
 Removes a class from DOM element(s).
 
-```JavaScript
-$pQueryObj.removeClass(className);
+```javascript
+var $pQueryObj = $p("<div class='class-name'></div>");
+
+$pQueryObj.removeClass("class-name");
+// => "<div></div>"
 ```
 
 ## AJAX
 
 Utilizes the `XMLHTTPRequest` API to asynchronously send and receive data from a server. By default, the `$p.ajax` function sends a `GET` request to an empty URL, with neither a success nor an error callback included.
 
-```JavaScript
+```javascript
 // DEFAULT:
 
 $p.ajax({
