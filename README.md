@@ -125,7 +125,10 @@ $pQueryObj.children();
 Clears the inner HTML of DOM elements(s).
 
 ```javascript
+var $pQueryObj = $p("<div>Old HTML</div>")
+
 $pQueryObj.empty();
+// => "<div></div>"
 ```
 
 #### find(selector)
