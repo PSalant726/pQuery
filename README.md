@@ -9,12 +9,18 @@ To incorporate pQuery into a project, first download this repository to your loc
 git clone https://github.com/PSalant726/pQuery.git
 ```
 
-Bundle pQuery by changing working directories to the newly downloaded or cloned directory, then [webpack][webpack] the component files by running:
+Change working directories to the newly downloaded or cloned directory using:
+
+```
+cd pQuery
+```
+
+Then use [webpack][webpack] to bundle the component files by running the following command:
 
 [webpack]: https://webpack.github.io
 
 ```
-webpack -g ./lib/main.js ./lib/pquery.js
+webpack
 ```
 
 You can now include `pquery.js` in the `<head>` tag of your HTML document, like so:
