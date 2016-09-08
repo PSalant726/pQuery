@@ -46,7 +46,7 @@ The function passed to the Core Function is temporarily queued in an array of fu
 <body>
   <script>
     const fillDiv = () => {
-      $p('class-name').html("Hello World!");
+      $p('.class-name').html("Hello World!");
     };
 
     $p(fillDiv);
